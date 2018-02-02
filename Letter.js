@@ -3,7 +3,8 @@ var Letter = function(char){
 	this.ph = "_";
 	this.guessed = false;
 	this.show = function(){
-		if(this.guessed){
+		console.log(this.guessed);
+		if(this.guessed == true){
 			console.log('unhidden');
 			return this.char;
 		} else {
@@ -16,6 +17,7 @@ var Letter = function(char){
 			console.log('You guessed right');
 			this.guessed = true;
 		}
+		console.log(this.guessed);
 	}
 }
 
