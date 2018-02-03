@@ -3,21 +3,16 @@ var Letter = function(char){
 	this.ph = "_";
 	this.guessed = false;
 	this.show = function(){
-		console.log(this.guessed);
 		if(this.guessed == true){
-			console.log('unhidden');
 			return this.char;
 		} else {
-			console.log('hidden');
 			return this.ph;
 		}
 	}
 	this.guess = function(guess){
-		if(guess === this.char){
-			console.log('You guessed right');
+		if(guess.toLowerCase() == this.char.toLowerCase()){
 			this.guessed = true;
 		}
-		console.log(this.guessed);
 	}
 }
 

@@ -15,13 +15,12 @@ var Word = function(word){
 		var string = "";
 
 		for(var i = 0; i < this.letters.length; i++){
-			string += this.letters[i].show();
+			string += this.letters[i].show() + " ";
 		}
 
 		return string;
 	};
 	this.guess = function(char){
-		console.log(char);
 		for(var i = 0; i < this.letters.length; i++){
 			this.letters[i].guess(char);
 		}
