@@ -5,10 +5,18 @@ var Word = function(word){
 	this.letters = [];
 	this.createWord = function(){
 		var char;
+		var letter;
 
 		for(var i = 0; i < this.word.length; i++){
 			char = this.word.charAt(i);
-			this.letters.push(new Letter(char));
+			letter = new Letter(char);
+
+			if(char != " "){
+				this.letters.push(letter);
+			} else {
+				letter.ph = " ";
+				this.letters.push(letter);
+			}
 		}
 	};
 	this.toString = function(){

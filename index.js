@@ -3,16 +3,18 @@ var Word = require("./Word.js");
 
 var guessesLeft;
 var letterGuesses;
-var wordBank = ["Sword"];
+var wordBank = ["Makoto Naegi", "Junko Enoshima", "Kyoko Kirigiri", "Mukuro Ikusaba", "Chihiro Fujisaki", "Byakuya Togami", "Toko Fukawa", "Celestia Ludenberg", "Sayaka Maizono", "Aoi Asahina", "Sakura Ogami", "Mondo Owada", "Yasuhiro Hagakure", "Kiyotaka Ishimaru", "Leon Kuwata", "Hifumi Yamada",
+				"Hajime Hinata", "Nagito Komaeda", "Mikan Tsumiki", "Chiaki Nanami", "Gundham Tanaka", "Fuyuhiko Kuzuryu", "Ibuki Mioda", "Hiyoko Sainonji", "Sonia Nevermind", "Peko Pekoyama", "Akane Owari", "Ultimate Imposter", "Kazuichi Soda", "Mahiru Koizumi", "Nekomaru Nidai", "Teruteru Hanamura",
+				"Kaede Akamatsu", "Shuichi Saihara", "Kokichi Oma", "Rantaro Amami", "Tsumugi Shirogane", "Maki Harukawa", "Korekiyo Shinguji", "Ultimate Robot", "Miu Iruma", "Kaito Momota", "Himiko Yumeno", "Tenko Chabashira", "Angie Yonaga", "Gonta Gokuhara", "Kirumi Tojo", "Ryoma Hoshi"];
 var regEx = /^[A-Za-z]+$/;
 var newWord;
 
 newGame();
 
 function newGame(){
-	guessleft = 7; 
-	newWord = newWord(wordBank);
-	newWord.createWord();
+	guessesLeft = 7; 
+	word = newWord(wordBank);
+	word.createWord();
 	gameLoop();
 }
 
@@ -31,16 +33,36 @@ function gameLoop(){
 		}
 	}
 	]).then(function(ans){
-		newWord.guess(ans.guess);
-		console.log(newWord.toString());
-	});
+		var char = ans.guess;
 
-	if(false){
-		gameLoop();
-	}
+		word.guess(char);
+		if(word.toString().toLowerCase().indexOf(char.toLowerCase()) == -1){
+			guessesLeft--;
+			if(guessesLeft == 0){
+				console.log("Ha ha, you're out of guesses! Too bad!");
+			} else {
+				console.log("Ha ha, wrong! Only " + guessesLeft + " guesses remaining!");
+			}
+		} else {
+			console.log("Oh? You got it right?");
+		}
+
+		console.log(word.toString());
+
+		if(word.toString().indexOf("_") == -1){
+			console.log("You got it but... DR Hangman will never end! Next victim!");
+			newGame();
+		} else if(guessesLeft == 0){
+			console.log("...But this game will never end! Next victim!");
+			newGame();
+		} else{
+			gameLoop();
+		}
+	});
 }
 
 function newWord(wordBank){
-	return new Word(wordBank[0]);
+	var num = Math.floor(Math.random() * Math.floor(wordBank.length));
+	return new Word(wordBank[num]);
 }
 
